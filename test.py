@@ -21,6 +21,9 @@ def exit_with_anykey():
 def chrome():
     service = Service(r"venv\Scripts\chromedriver.exe")
     options = webdriver.ChromeOptions()
+    # 剔除无用日志
+    options.add_experimental_option(
+        "excludeSwitches", ['enable-automation', 'enable-logging'])
     # 打开页面
     # driverpath = r'venv\Scripts\chromedriver.exe'
     driver = webdriver.Chrome(service=service, options=options)
@@ -31,9 +34,9 @@ def chrome():
 
     # time.sleep(5)
     print(ec.title_contains("注册"))
-    
+
     driver.find_element_by_id("register_email").send_keys("test@163.com")
-    
+
     # 父级div的class_name=controls定位,有两个,取第二个
     user_name_element_node = driver.find_elements_by_class_name("controls")[1]
     # 子级div的class_name=form-control定位
@@ -42,7 +45,7 @@ def chrome():
     # print("长度:%s" % (len(user_element)))
     # 输入值
     user_element.send_keys("asdfasdf")
-    
+
     driver.find_element_by_name("password").send_keys("111111")
 
     driver.find_element_by_xpath('//*[@id="captcha_code"]').send_keys("111111")
