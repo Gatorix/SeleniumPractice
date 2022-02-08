@@ -42,7 +42,7 @@ def chrome():
     # print("长度:%s" % (len(user_element)))
     # 输入值
     user_element.send_keys("asdfasdf")
-
+    
     driver.find_element_by_name("password").send_keys("111111")
 
     driver.find_element_by_xpath('//*[@id="captcha_code"]').send_keys("111111")
