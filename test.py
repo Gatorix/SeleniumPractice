@@ -2,6 +2,7 @@ import msvcrt
 import os
 import random
 import time
+import analyze
 from PIL import Image
 
 from selenium import webdriver
@@ -18,7 +19,7 @@ global driver
 
 
 def gen_random_str(len=8, prefix='', suffix=''):
-    return prefix+''.join(random.sample("1234567890abcdefghijklmn", len))+suffix
+    return prefix+''.join(random.sample("1234567890abcdefghijklmnopqrstuvwxyz", len))+suffix
 
 
 def exit_with_anykey():
@@ -44,11 +45,12 @@ def chrome():
     driver.save_screenshot(r'.\tmp\test.png')
     code_element = driver.find_element(By.ID, "getcode_num")
 
-    left = code_element.location['x']
-    top = code_element.location['y']
-    right = code_element.size['width']+left
-    bottom = code_element.size['height']+top
-
+    left = code_element.location['x']+202
+    top = code_element.location['y']+132
+    right = code_element.size['width']+left+20
+    bottom = code_element.size['height']+top+10
+    # print(code_element.location)
+    # print(left, top, right, bottom)
     saved_img = Image.open(r'.\tmp\test.png')
     verification_img = saved_img.crop((left, top, right, bottom))
     verification_img.save(r'.\tmp\verification_img.png')
@@ -59,30 +61,36 @@ def chrome():
     # locater = (By.CLASS_NAME, "controls")
     # WebDriverWait(driver, 1).until(
     #     ec.visibility_of_element_located(locater))
-    # email_element = driver.find_element(By.ID, "register_email")
-    # # 获取placeholder的默认值
+    email_element = driver.find_element(By.ID, "register_email")
+    # 获取placeholder的默认值
     # defemail = email_element.get_attribute("placeholder")
-    # email_element.send_keys(gen_random_str(len=16, suffix="@outlook.com"))
-    # # 获取当前输入的值
+    email_element.send_keys(gen_random_str(len=16, suffix="@outlook.com"))
+    # 获取当前输入的值
     # curremail = email_element.get_attribute("value")
     # print(defemail, curremail)
 
     # driver.find_element(By.ID, "register_email").send_keys("test@163.com")
 
     # 父级div的class_name=controls定位,有两个,取第二个
-    # user_name_element_node = driver.find_elements(By.CLASS_NAME, "controls")[1]
+    user_name_element_node = driver.find_elements(By.CLASS_NAME, "controls")[1]
     # 子级div的class_name=form-control定位
-    # user_element = user_name_element_node.find_element(By.CLASS_NAME,
-    #    "form-control")
+    user_element = user_name_element_node.find_element(By.CLASS_NAME,
+                                                       "form-control")
     # print("长度:%s" % (len(user_element)))
     # 输入值
-    # user_element.send_keys("asdfasdf")
+    user_element.send_keys(gen_random_str())
 
-    # driver.find_element(By.NAME, "password").send_keys("111111")
+    driver.find_element(By.NAME, "password").send_keys(gen_random_str())
 
+    # 调用api解析验证码，次数有限
     # driver.find_element(
-    #     By.XPATH, '//*[@id="captcha_code"]').send_keys("111111")
-    # ec.title_is()#完全匹配
+    #     By.XPATH, '//*[@id="captcha_code"]').send_keys(analyze.analyze(r'tmp\verification_img.png'))
+
+    # 先随机传一个进去
+    driver.find_element(
+        By.XPATH, '//*[@id="captcha_code"]').send_keys(gen_random_str(len=5))
+
+    # ec.title_is()  # 完全匹配
 
     exit_with_anykey()
     # driver.close()
