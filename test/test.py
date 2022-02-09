@@ -122,6 +122,6 @@ def firefox():
 
 
 if __name__ == "__main__":
-    chrome()
-    # edge()
+    # chrome()
+    edge()
     # firefox()
