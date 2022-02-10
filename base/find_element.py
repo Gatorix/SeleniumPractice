@@ -1,5 +1,6 @@
 import sys
 sys.path.append(r'C:\Users\Gatorix\Documents\SeleniumPractice')
+sys.path.append(r'\\mac\Home\Documents\SeleniumPractice')
 from util.read_config import ReadConfig
 from selenium.webdriver.common.by import By
 
