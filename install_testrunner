@@ -1,3 +1,2 @@
-git clone https://github.com/SeldomQA/HTMLTestRunner
-cd HTMLTestRunner/
-python setup.py install
+
+https://github.com/oldani/HtmlTestRunner
