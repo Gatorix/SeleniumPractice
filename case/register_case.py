@@ -1,4 +1,6 @@
+from pydoc import classname
 import sys
+import time
 sys.path.append(r'C:\Users\Gatorix\Documents\SeleniumPractice')
 sys.path.append(r'\\mac\Home\Documents\SeleniumPractice')
 
@@ -26,6 +28,12 @@ class RegisterCase(unittest.TestCase):
         self.reg = RegisterBusiness(self.driver)
 
     def tearDown(self) -> None:
+        time.sleep(2)
+        for error in self._outcome.errors:
+            if error:
+                case_name=self._testMethodName
+                img_path=os.path.join(os.getcwd()+'/reports/'+case_name+'.png')
+                self.driver.save_screenshot(img_path)
         self.driver.close()
 
     def test_reg_email_error(self):

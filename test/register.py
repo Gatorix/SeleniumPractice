@@ -2,7 +2,7 @@ import msvcrt
 import os
 import random
 import time
-import analyze
+# import analyze
 from PIL import Image
 
 from selenium import webdriver
