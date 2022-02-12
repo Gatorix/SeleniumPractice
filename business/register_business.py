@@ -46,3 +46,10 @@ class RegisterBusiness(object):
             return True
         else:
             return False
+
+    def register_func(self, email, username, password, vcode, assertCode, assertText):
+        self.register_base(email, username, password, vcode)
+        if self.register_hd.get_ver_text(assertCode, assertText) == None:
+            return True
+        else:
+            return False

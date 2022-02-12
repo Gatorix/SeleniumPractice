@@ -21,12 +21,12 @@ class RegisterHandle(object):
     def send_password(self, password):
         self.register_page.get_password_element().send_keys(password)
 
-    def send_verification_code(self,file):
-        get_vcode_text=GetVcode(self.driver)
-        vcode=get_vcode_text.analyze(file)
+    def send_verification_code(self,vcode):
+        # get_vcode_text=GetVcode(self.driver)
+        # vcode=get_vcode_text.analyze(file)
         self.register_page.get_vcode_element().send_keys(vcode)
 
-    def get_ver_text(self, info, user_info):
+    def get_ver_text(self, info,errorinfo):
         try:
             if info == 'user_email_error':
                 text = self.register_page.get_email_error_element().text
