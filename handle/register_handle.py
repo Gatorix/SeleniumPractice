@@ -1,8 +1,15 @@
+
+import sys
+sys.path.append(r'C:\Users\Gatorix\Documents\SeleniumPractice')
+sys.path.append(r'\\mac\Home\Documents\SeleniumPractice')
+
 from page.register_page import RegisterPage
+from util.get_vcode import GetVcode
 
 
 class RegisterHandle(object):
     def __init__(self, driver) -> None:
+        self.driver = driver
         self.register_page = RegisterPage(driver)
 
     def send_user_email(self, email):
@@ -14,7 +21,9 @@ class RegisterHandle(object):
     def send_password(self, password):
         self.register_page.get_password_element().send_keys(password)
 
-    def send_verification_code(self, vcode):
+    def send_verification_code(self,file):
+        get_vcode_text=GetVcode(self.driver)
+        vcode=get_vcode_text.analyze(file)
         self.register_page.get_vcode_element().send_keys(vcode)
 
     def get_ver_text(self, info, user_info):
